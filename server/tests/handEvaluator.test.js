@@ -3,8 +3,8 @@ import { getBestHand } from '../helpers/handEvaluator.js';
 describe('getBestHand', () => {
 
   test('returns High Card for a hand with no pair', () => {
-      const hand = ['AS', 'KC', '10H', '3D', '5S'];
-      expect(getBestHand(hand)).toBe('High Card');
+    const hand = ['AS', 'KC', '10H', '3D', '5S'];
+    expect(getBestHand(hand)).toBe('High Card');
   });
 
   test('returns One Pair for a hand with two As', () => {
