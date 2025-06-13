@@ -17,12 +17,33 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        # Remove the cache setting here since we'll handle it per directory
 
-    - name: Install Dependencies
-      run: |
-        cd server && npm ci
-        cd ../client && npm ci
+    - name: Cache server dependencies
+      uses: actions/cache@v3
+      id: server-cache
+      with:
+        path: server/node_modules
+        key: ${{ runner.os }}-server-${{ hashFiles('server/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-server-
+
+    - name: Cache client dependencies
+      uses: actions/cache@v3
+      id: client-cache
+      with:
+        path: client/node_modules
+        key: ${{ runner.os }}-client-${{ hashFiles('client/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-client-
+
+    - name: Install Server Dependencies
+      working-directory: ./server
+      run: npm ci
+
+    - name: Install Client Dependencies
+      working-directory: ./client
+      run: npm ci
 
     - name: Run Server Tests
       working-directory: ./server
