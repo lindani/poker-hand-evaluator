@@ -33,6 +33,8 @@ This runs the server using [Nodemon](https://nodemon.io/)
 server/
 ├── controllers/
 │   └── evaluateControllers.js # Handles API request/response logic
+├── middlewares/
+│   └── validateCards.js
 ├── helpers/ # Reusable utility functions
 │   └── handEvaluator.js
 ├── node_modules/ # 3rd-party dependencies
