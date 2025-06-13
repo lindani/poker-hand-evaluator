@@ -19,6 +19,8 @@ const App = () => {
   const [modalMessage, setModalMessage] = useState(''); // Modal content
   const [isDraggingOver, setIsDraggingOver] = useState(false); // Drag state
   const [isSubmitting, setIsSubmitting] = useState(false); // API call state
+  const [flashMessage, setFlashMessage] = useState(null);
+
 
   // Handles card drop event
   const handleDrop = useCallback((e) => {
@@ -98,6 +100,20 @@ const App = () => {
     setModalMessage('');
   }, []);
 
+  const handleCardClick = useCallback((code) => {
+    if (hand.length >= 5) {
+      setModalMessage('Maximum 5 cards allowed in hand');
+      setShowModal(true);
+      return;
+    }
+
+    if (!hand.includes(code)) {
+      setHand((prev) => [...prev, code]);
+      setFlashMessage(`Added ${code.replace('0', '10')}`);
+      setTimeout(() => setFlashMessage(null), 1500); // Auto-dismiss after 1.5s
+    }
+  }, [hand]);
+
   // Main component render
   return (
     <div className="p-4 max-w-screen-2xl mx-auto font-sans min-h-screen bg-gray-50">
@@ -108,7 +124,7 @@ const App = () => {
       {/* Available cards section */}
       <section className="mb-8 p-4 bg-white shadow-lg rounded-xl">
         <h2 className="text-2xl font-bold mb-4 text-gray-700">Available Cards</h2>
-        <CardDeck cards={allCards} onDragStart={handleDragStart} />
+        <CardDeck cards={allCards} onDragStart={handleDragStart}   onCardClick={handleCardClick}/>
       </section>
 
       {/* Card drop zone section */}
@@ -121,6 +137,7 @@ const App = () => {
           handleDragOver={handleDragOver}
           handleDragLeave={handleDragLeave}
           removeCard={removeCard}
+          flashMessage={flashMessage}
         />
       </section>
 

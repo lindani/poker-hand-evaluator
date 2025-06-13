@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* Prevent zooming on double-tap */
+@media (pointer: coarse) {
+  .card-image {
+    touch-action: manipulation;
+  }
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
+  20% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  80% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  100% { opacity: 0; transform: translateY(-10px) translateX(-50%); }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 1.5s ease-in-out forwards;
+}

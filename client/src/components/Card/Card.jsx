@@ -1,6 +1,6 @@
 import { cardImageStyle } from '../../styles/cardStyles'
 
-export const Card = ({ code, onDragStart, onClick, showRemoveButton, onRemove }) => {
+export const Card = ({ code, onDragStart, onClick, showRemoveButton, onRemove, compact }) => {
   const displayCode = code.replace('0', '10');
 
   return (
@@ -11,13 +11,14 @@ export const Card = ({ code, onDragStart, onClick, showRemoveButton, onRemove })
         draggable={!!onDragStart}
         onDragStart={onDragStart && ((e) => onDragStart(e, code))}
         onClick={onClick}
-        className={cardImageStyle({ showRemoveButton })}
+        className={cardImageStyle({ showRemoveButton, compact })}
         onError={(e) => {
           e.target.onerror = null;
           e.target.src = `https://placehold.co/64x89/cccccc/333333?text=${displayCode}`;
         }}
         aria-label={`Card ${displayCode}`}
         tabIndex="0"
+        style={{ cursor: 'pointer' }} // Add pointer cursor
       />
       {showRemoveButton && (
         <button
