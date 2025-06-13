@@ -1,4 +1,4 @@
-import { getBestHand } from '../utils/handEvaluatorUtil.js';
+import { getBestHand } from '../../utils/handEvaluatorUtil';
 
 describe('getBestHand', () => {
 
