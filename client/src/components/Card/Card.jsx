@@ -1,4 +1,4 @@
-import { cardImageStyle } from '../styles/cardStyles';
+import { cardImageStyle } from '../../styles/cardStyles'
 
 export const Card = ({ code, onDragStart, onClick, showRemoveButton, onRemove }) => {
   const displayCode = code.replace('0', '10');

@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { useCardUtils } from './utils/cardUtils';
-import { CardDeck } from './components/CardDeck';
+import { CardDeck } from './components/Card/CardDeck';
 import { DropZone } from './components/DropZone';
 import { Modal } from './components/Modal';
-import { ActionButton } from './components/ActionButton';
+import { ActionButton } from './components/Button/ActionButton';
 
 const App = () => {
   const { getCardCodes, getCardImageUrl } = useCardUtils();
