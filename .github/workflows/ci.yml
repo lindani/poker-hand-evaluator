@@ -1,0 +1,42 @@
+name: CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        cd server && npm ci
+        cd ../client && npm ci
+
+    - name: Run Server Tests
+      working-directory: ./server
+      run: npm test
+
+    - name: Verify Client Build
+      working-directory: ./client
+      run: npm run build
+
+    - name: Run Client Tests (if they exist)
+      working-directory: ./client
+      run: |
+        if [ -f "vitest.config.js" ] || [ -f "jest.config.js" ]; then
+          npm test
+        else
+          echo "No client tests configured - skipping"
+        fi
