@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../app.js';
+import app from '../../../app.js';
 
 describe('POST /api/evaluate (error handling)', () => {
   test('returns 400 if cards is not an array', async () => {

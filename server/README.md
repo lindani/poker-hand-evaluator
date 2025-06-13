@@ -40,8 +40,12 @@ server/
 ├── node_modules/ # 3rd-party dependencies
 ├── routes/ # API endpoint definitions
 │   └── evaluate.js
-├── tests/
-│   └── handEvaluator.test.js  # Test suites
+├── tests/ # Test suites
+│   └── integration/
+│       └── midlleware
+│           └── validateCards.test.js
+│   └── util/
+│       └── handEvaluator.test.js
 ├── server.js # Server entry point
 ├── app.js # Express app configuration
 ├── package-lock.json # Exact dependency tree
